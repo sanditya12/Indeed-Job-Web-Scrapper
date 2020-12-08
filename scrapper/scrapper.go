@@ -82,9 +82,9 @@ func getPage(page int, baseUrl string, c chan<- []jobsRes) {
 
 func extractJobs(s *goquery.Selection, d chan<- jobsRes) {
 	id, _ := s.Attr("data-jk")
-	id = cleanString(id)
-	title := cleanString(s.Find(".title>a").Text())
-	loc := cleanString(s.Find(".sjcl>.location").Text())
+	id = CleanString(id)
+	title := CleanString(s.Find(".title>a").Text())
+	loc := CleanString(s.Find(".sjcl>.location").Text())
 	d <- jobsRes{id: id, title: title, loc: loc}
 }
 
@@ -117,6 +117,7 @@ func checkStatus(res *http.Response) {
 	}
 }
 
-func cleanString(str string) string {
+//CleanString Clean the String from spaces around
+func CleanString(str string) string {
 	return strings.Join(strings.Fields(strings.TrimSpace(str)), " ")
 }
